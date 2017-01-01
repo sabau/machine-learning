@@ -41,19 +41,20 @@ Theta_grad = zeros(size(Theta));
 %
 
 
+temp = ((X * Theta') - Y);
+J = 1/2 * sum(sum(R .* (temp.^2)));
 
+reg_term_X_grad = lambda * X;
+reg_term_Theta_grad = lambda * Theta;
+		
+X_grad = ((X * Theta' - Y) .* R) * Theta;
+X_grad = X_grad + reg_term_X_grad;
 
+Theta_grad = ((X * Theta' - Y) .* R)' * X;
+Theta_grad = Theta_grad + reg_term_Theta_grad;
 
-
-
-
-
-
-
-
-
-
-
+regularizedJ = (lambda/2) * (sum(sum(Theta.^2)) + sum(sum(X.^2))); 
+J = J + regularizedJ;
 
 % =============================================================
 
